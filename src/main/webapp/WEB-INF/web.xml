@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app
+        version="2.5"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+   
+    <!-- SERVLETS -->
+    <servlet>
+        <servlet-name>PostMessageDatastore</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.PostMessageDatastore</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PostMessageDatastore</servlet-name>
+        <url-pattern>/api/message/post</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PostMessageBigQuery</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.PostMessageBigQuery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PostMessageBigQuery</servlet-name>
+        <url-pattern>/api/message/post/bigquery</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DeleteMessage</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.DeleteMessage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteMessage</servlet-name>
+        <url-pattern>/api/message/delete</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ListMessage</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.GetMessageList</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListMessage</servlet-name>
+        <url-pattern>/api/message/get/list</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CountMessage</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.GetMessageCount</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CountMessage</servlet-name>
+        <url-pattern>/api/message/get/count</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GCEinstanceStart</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.GCEinstanceStart</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GCEinstanceStart</servlet-name>
+        <url-pattern>/api/gce/instance/start</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LaunchGCEinstanceStart</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.LaunchGCEinstanceStart</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LaunchGCEinstanceStart</servlet-name>
+        <url-pattern>/api/gce/instance/start/launch</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GCEinstanceStop</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.GCEinstanceStop</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GCEinstanceStop</servlet-name>
+        <url-pattern>/api/gce/instance/stop</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GCEinstanceStopAll</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.GCEinstanceStopAll</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GCEinstanceStopAll</servlet-name>
+        <url-pattern>/api/gce/instance/stop/all</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GCEinstanceGetList</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.GCEinstanceGetList</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GCEinstanceGetList</servlet-name>
+        <url-pattern>/api/gce/instance/get/list</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GetInstanceList</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.GetInstanceList</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetInstanceList</servlet-name>
+        <url-pattern>/api/instance/get/list</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DeleteInstance</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.DeleteInstance</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteInstance</servlet-name>
+        <url-pattern>/api/instance/delete</url-pattern>
+    </servlet-mapping>
+    
+    <!--  Pub/Sub -->
+    <servlet>
+        <servlet-name>PubSubTopicCreate</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.PubSubTopicCreate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PubSubTopicCreate</servlet-name>
+        <url-pattern>/api/pubsub/topic/create</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>PubSubTopicList</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.PubSubTopicList</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PubSubTopicList</servlet-name>
+        <url-pattern>/api/pubsub/topic/list</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PubSubTopicDelete</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.PubSubTopicDelete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PubSubTopicDelete</servlet-name>
+        <url-pattern>/api/pubsub/topic/delete</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PubSubTopicPublish</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.PubSubTopicPublish</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PubSubTopicPublish</servlet-name>
+        <url-pattern>/api/pubsub/topic/publish</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PubSubTopicPushMessageHandler</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.PubSubTopicPushMessageHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PubSubTopicPushMessageHandler</servlet-name>
+        <url-pattern>/api/pubsub/topic/push/handler</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PubSubTopicSubscribeCreatePush</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.PubSubTopicSubscribeCreatePush</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PubSubTopicSubscribeCreatePush</servlet-name>
+        <url-pattern>/api/pubsub/topic/subscribe/create/push</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+        <servlet-name>PubSubTopicSubscribeList</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.PubSubTopicSubscribeList</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PubSubTopicSubscribeList</servlet-name>
+        <url-pattern>/api/pubsub/topic/subscribe/list</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PubSubTopicSubscribeDelete</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.PubSubTopicSubscribeDelete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PubSubTopicSubscribeDelete</servlet-name>
+        <url-pattern>/api/pubsub/topic/subscribe/delete</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>eu.revevol.cloudConf2015.gcp_demo.Login</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    
+    <!-- FILTERS  -->
+	<filter>
+		<filter-name>ObjectifyFilter</filter-name>
+		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ObjectifyFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+    
+    <!-- WELCOME FILE -->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
+    <!-- Activate Security -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>SSL</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+</web-app>

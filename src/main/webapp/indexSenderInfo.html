@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- jQuery -->
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	
+	<!-- BootStrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+	
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	
+	<!-- jQuery Timer -->
+	<script src="jQueryTimer/jquery.timer.js"></script>
+	
+	<script>
+	
+	<!-- check if the connected user is ok or not -->
+	
+	function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+	
+	$( document ).ready(function() {
+		//get details needed to upload file into bucket
+			$.ajax({
+   			type:'POST',
+	   		url:'/login',
+	   		data: {},
+	   		async:false,
+	   		success: function(data){
+	   					if(data.status!="200 OK"){
+	   						window.location=data.status;
+	   						return;
+	   					}
+	   					else{
+	   						//load sender data
+	   						getSenderMessageCount(getParameterByName('sender'))
+	   						getSenderMessageList(getParameterByName('sender'))
+	   					}
+	   				}
+			});
+	});
+	
+	
+	
+	
+	function getSenderMessageList(sender){
+		
+		$.ajax({
+   			type:'GET',
+	   		url:'/api/message/get/list',
+	   		data: {'sender':sender},
+	   		async:false,
+	   		success: function(data){
+	   					var html="<table table class='table table-hover'>";
+	   					html+="<tr>";
+	   						html+="<th>VALUE</th>";
+	   						html+="<th>TIMESTAMP</th>";
+	   					html+="</tr>";
+	   					for(var i=0;i<data.length;i++){
+	   						html+="<tr>";
+	   							html+="<td>"+data[i].value+"</td>";
+	   							html+="<td>"+new Date(data[i].timestamp)+"</td>";
+	   						html+="</tr>";
+	   					}
+	   					html+="</table>";
+	   					$('#senderMessageList').html("<h4>"+html +"</h4>");	
+	   				}
+			});
+		
+	}
+	
+	function getSenderMessageCount(sender){
+		$.ajax({
+   			type:'GET',
+	   		url:'/api/message/get/count',
+	   		data: {'sender':sender},
+	   		async:false,
+	   		success: function(data){
+	   					$('#senderMessageCount').html("<h3>"+data + " messages<br><br></h3>");	
+	   				}
+			});
+	}
+	
+	</script>
+	
+			
+		
+   	  	
+	
+<title>Cloud Conf 2015 - Google Cloud Platform DEMO</title>
+</head>
+<body>
+
+    <div class="container-fluid">
+      <div class="row">
+      	<div class="col-xs-12 col-sm-6 col-md-4">
+      		<h1>Cloud Conf 2015<br><small>Google Cloud Platform DEMO</small></h1>
+      		<hr>
+      	</div>
+  		<div class="col-xs-6 col-md-4">
+  			<img src="images/cloud-conf-2015-logo.png" style="width:100%">
+  		</div>
+      </div>
+    </div> 
+  	  <div class="row">
+	  <div class="col-lg-12">
+	      <div id='senderMessageCount'></div>
+	      <div id='senderMessageList'></div>
+	  </div><!-- /.col-lg-6 -->
+	</div><!-- /.row -->
+    <footer>
+    	<div class="container text-center">
+    		<p>
+    		Marco Tranquillin 2015 - <a href="mailto:marco.tranquillin@revevol.eu?Subject=Information">marco.tranquillin@revevol.eu</a>
+    		</p>
+    		<p>
+    		<a href="https://twitter.com/MrTranqui" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @MrTranqui</a>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    		</p>
+  		</div>
+    </footer>
+  </body>
+</html>

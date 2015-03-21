@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- jQuery -->
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	
+	<!-- BootStrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+	
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	
+	<!-- jQuery Timer -->
+	<script src="jQueryTimer/jquery.timer.js"></script>
+	
+	<script>
+	
+	<!-- check if the connected user is ok or not -->
+	//variables
+	var instanceDetails=new Array();
+	var instanceBootedDetails=new Array();
+	var instanceBooted=0;
+	var intervalListMachine=null;
+	
+	$( document ).ready(function() {
+		//get details needed to upload file into bucket
+			$.ajax({
+   			type:'POST',
+	   		url:'/login',
+	   		data: {},
+	   		async:false,
+	   		success: function(data){
+	   					if(data.status!="200 OK"){
+	   						window.location=data.status;
+	   						return;
+	   					}
+	   				}
+			});
+	});
+	
+	//load a number of instances written by the user
+	function startInstances(){
+		//reset instance counter
+		instanceBooted=0;
+		//block generate button
+		if ($('#numberOfInstances').val()==null || $('#numberOfInstances').val()==""){
+			alert('Number of instance: please insert a numeric value before continue!');
+			return;
+		}
+		if(!$.isNumeric($('#numberOfInstances').val())){
+			alert('Number of instance: please insert a numeric value before continue!');
+			return;
+		}
+		if ($('#messagePostNumber').val()==null || $('#messagePostNumber').val()==""){
+			alert('Message post number: please insert a numeric value before continue!');
+			return;
+		}
+		if(!$.isNumeric($('#messagePostNumber').val())){
+			alert('Message post number: please insert a numeric value before continue!');
+			return;
+		}
+		$('#btnLoadMachine').attr('disabled','true');
+		
+		var numberOfInstance=parseInt($('#numberOfInstances').val(),10);
+		console.log('Number of instances to be bootstrapped: ' + numberOfInstance);
+		
+		//random message between 100 and 1000
+		var messagePostNumber=parseInt($('#messagePostNumber').val(),10);
+		//boot instances
+		$.ajax({
+				type:'POST',
+   			url:'/api/gce/instance/start/launch',
+   			data: {'instanceNumber':numberOfInstance,'messagePostNumber':messagePostNumber},
+   			async:true,
+   			success: function(data){
+   					instanceDetails.push(data);
+   				}
+		});
+		//start displaying message count
+		$('#totalPublishedMessage').html("<h3>System is generating publishers.<br>Counter will reports messages sent by publishers.</h3><br><br>");
+		
+		//start listing machines
+		intervalListMachine=window.setInterval(function(){
+			getListOfMachines();
+		},3000);
+		
+		window.setInterval(function(){
+			getMessageCount();
+		},5000);
+		
+		return;
+	}
+	
+	
+	/**
+		Get list of machines and display data according to that
+	*/
+	function getListOfMachines(){
+		//boot instances
+		$.ajax({
+				type:'GET',
+   			url:'/api/gce/instance/get/list',
+   			data: {},
+   			async:true,
+   			success: function(data){
+   					var myData=JSON.parse('['+data+']');
+   					if(myData.length>0){ 
+						var instanceProvisioning=0;
+						var instanceStaging=0;
+						//check if all machine are up and running
+						for(var i=0;i<myData.length;i++){
+							console.log('instanceBooted: ' + instanceBooted);
+							console.log('status: ' +myData[i].status);
+							if(!hasBeenAlreadyProvisioned(instanceBootedDetails,myData[i].name)){
+								++instanceBooted;
+								instanceBootedDetails.push(myData[i]);
+								//add dedicated section with id equals to the name of the instance
+								$('#totalPublishedMessage').append("<div id='"+myData[i].name+"'></div>");
+								if(instanceBooted==parseInt($('#numberOfInstances').val(),10)){
+									window.clearInterval(intervalListMachine);
+								}
+							}
+						}
+					}
+   				}
+		});
+		
+		return;
+		
+	}
+	
+	//load a number of instances written by the user
+	function getMessageCount(){
+		for(var i=0;i<instanceBooted;i++){
+			//boot instances
+			$.ajax({
+						type:'GET',
+	   					url:'/api/message/get/count',
+	   					data: {'sender':instanceBootedDetails[i].name},
+	   					async:true,
+	   					success: function(data){
+	   						var instanceName=data.split(":")[0];
+	   						var counter=data.split(":")[1];
+	   						$('#'+instanceName).html("<h4>Total message published by " + instanceName + ": <strong>"+counter+"</strong></h4>")
+	   				}
+			});
+		}
+		return;
+	}
+	
+	//check if machine has been already provisioned
+	function hasBeenAlreadyProvisioned(myData,name){
+		for(var i=0;i<myData.length;i++){
+			if (myData[i].name==name)
+				return true;
+		}
+		return false;
+	}
+	
+	</script>
+	
+			
+		
+   	  	
+	
+<title>Cloud Conf 2015 - Google Cloud Platform DEMO</title>
+</head>
+<body>
+
+    <div class="container-fluid">
+      <div class="row">
+      	<div class="col-xs-12 col-sm-6 col-md-4">
+      		<h1>Cloud Conf 2015<br><small>Google Cloud Platform DEMO</small></h1>
+      		<hr>
+      		<p class="lead">
+      			<strong>Scaling</strong> with no pains!<br>
+      			Exceed limits using <strong>Google Cloud Platform</strong>
+      			 
+      		</p>
+      	</div>
+  		<div class="col-xs-6 col-md-4">
+  			<img src="images/cloud-conf-2015-logo.png" style="width:100%">
+  		</div>
+      </div>
+    </div> 
+  	  <div class="row">
+	  <div class="col-lg-6">
+	      <form class="form-inline">
+			  <input type="text" class="form-control" id='numberOfInstances' placeholder='Number of publishers'>
+			  <br>
+	      	  <input type="text" class="form-control" id='messagePostNumber' placeholder='Messages to post'>
+	      	  <br>
+			  <button class="btn btn-default" type="button" id='btnLoadMachine' onClick="startInstances()">Start simulation</button>
+		</form>
+	  </div><!-- /.col-lg-6 -->
+	</div><!-- /.row -->
+	<button type="button" class="btn btn-default" id='btnStopMachine' style="visibility:hidden" onClick="removeAllInstances();">Stop machines</button>
+    <br><br>
+    <div id='totalPublishedMessage'></div>
+    <footer>
+    	<div class="container text-center">
+    		<p>
+    		Marco Tranquillin 2015 - <a href="mailto:marco.tranquillin@revevol.eu?Subject=Information">marco.tranquillin@revevol.eu</a>
+    		</p>
+    		<p>
+    		<a href="https://twitter.com/MrTranqui" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @MrTranqui</a>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    		</p>
+  		</div>
+    </footer>
+  </body>
+</html>
