@@ -24,7 +24,7 @@ considerable. Pay attention to what you are doing ;-)*
 2. check inside your GCE quota the number of cores that you can have at the same time on us-central-1 region: every instance comes with a core so if you want to setup a big cluster you need to have an adequate quota. Click on "Change request" to request more quota.
 3. generate your ServiceAccount under "APIs and Auth" section
 4. create a [custom GCE image](https://cloud.google.com/compute/docs/images) that contains Java environment 1.7+ , the java client needed to generate messages (see repository [marco-tranquillin/cloud-conf-2015-gcp-demo-java-client](https://github.com/marco-tranquillin/cloud-conf-2015-gcp-demo-java-client) and the service account
-5. upload in Google Cloud Storage the startup script and make it public
+5. upload in Google Cloud Storage the [startup script](https://github.com/marco-tranquillin/cloud-conf-2015-gcp-demo/blob/master/startupScript.sh) and make it public
 6. configure the class eu.revevol.cloudConf2015.gcp_demo.shared.Constants.java with your parameters
 7. mvn package to build the application
 8. mvn appengine:update to deploy the application 
