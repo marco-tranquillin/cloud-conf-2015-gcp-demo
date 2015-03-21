@@ -3,7 +3,8 @@
 ## Google Cloud Platform Demo
 ##Scaling with no pains - Exceed limits using GCP
 
-This demo has been presented at [CloudConf2015](http://2015.cloudconf.it/)
+This demo has been presented at [CloudConf2015](http://2015.cloudconf.it/).
+
 The goal of this demo is to show the scalability of the GCP.
 The main page will allow you to:
 a. select the number of Linux machine that you want to create on GCE
