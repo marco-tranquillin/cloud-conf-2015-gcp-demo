@@ -1,7 +1,7 @@
 **Cloud Conf 2015 - Google Cloud Platform (GCP) Demo**
 
 ## Google Cloud Platform Demo
-##Scaling with no pains - Exceed limits using GCP
+**Scaling with no pains - Exceed limits using GCP**
 
 This demo has been presented at [CloudConf2015](http://2015.cloudconf.it/).
 
