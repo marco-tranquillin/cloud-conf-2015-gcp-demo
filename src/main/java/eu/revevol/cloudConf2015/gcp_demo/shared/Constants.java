@@ -32,7 +32,7 @@ public class Constants {
 	public static final String		APPLICATION_NAME				= "CloudConf2015 - GCP DEMO";
 	public static final String		PROJECT_ID						= "YOUR_PROJECT_ID";
 	public static final String		GCE_MACHINE_DEFAULT_ZONE		= "us-central1-a";
-	public static final String		GCE_MACHINE_TYPE_FULL_URL		= "https://www.googleapis.com/compute/v1/projects/gcp-dev-conf-gce-demo/zones/xxxZONExxx/machineTypes/xxxMACHINE_TYPExxx";
+	public static final String		GCE_MACHINE_TYPE_FULL_URL		= "https://www.googleapis.com/compute/v1/projects/YOUR_PROJECT_ID/zones/xxxZONExxx/machineTypes/xxxMACHINE_TYPExxx";
 	public static final String		GCE_MACHINE_TYPE_N1_HIGHCPU_2	= "n1-highcpu-2";
 	public static final String		GCE_MACHINE_TYPE_F1_MICRO		= "f1-micro";
 	public static final String		GCE_LINUX_BOOT_IMG				= "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-7-wheezy-v20150309";
